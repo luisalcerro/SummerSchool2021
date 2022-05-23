@@ -1,0 +1,97 @@
+<?xml version="1.0"?>
+
+<jetscape>
+  
+  <nEvents> 1000 </nEvents>
+  
+  <outputFilename>test_out</outputFilename>
+  <!--JetScapeWriterAscii> on </JetScapeWriterAscii-->
+  <JetScapeWriterFinalStateHadronsAscii> on </JetScapeWriterFinalStateHadronsAscii> 
+  <!-- Hard Process -->
+
+  <IS>
+    <Trento>
+      <PhysicsInputs  projectile='Pb'
+		      target='Pb'
+		      sqrts='5020.'
+		      cross-section='6.7'
+		      normalization='18.4'>
+      </PhysicsInputs>
+      <CutInputs  centrality-low='0'
+		  centrality-high='10'>
+      </CutInputs>
+    </Trento>
+  </IS>
+
+
+  <!--Preequilibrium Dynamics Module -->
+  <Preequilibrium>
+    <NullPreDynamics> </NullPreDynamics>
+  </Preequilibrium>
+
+  <!-- Hydro  Module  -->
+  <Hydro>
+    <MUSIC>
+      <freezeout_temperature>0.150</freezeout_temperature>
+    </MUSIC>
+  </Hydro>
+  
+  <Hard>
+    <PythiaGun>
+      <pTHatMin>0</pTHatMin>
+      <pTHatMax>-1</pTHatMax>
+      <eCM>5020</eCM>
+      <FSR_on>1</FSR_on>
+      <LinesToRead>
+	Top:gg2ttbar = on
+	Top:qqbar2ttbar = on
+	HardQCD:all = off
+	PromptPhoton:all = off
+	24:onMode = off
+	24:onIfAny = 11 12
+	24:onIfAny = 13 14
+	24:onIfAny = 15 16
+      </LinesToRead>
+    </PythiaGun>
+  </Hard>
+
+
+  
+  <!--Eloss Modules -->
+  <Eloss>
+
+    <Matter>
+      <name>Matter</name>
+      <useHybridHad>0</useHybridHad>
+      <matter_on>1</matter_on>
+      <Q0>2.0</Q0>
+      <vir_factor>0.25</vir_factor>
+      <in_vac>0</in_vac>
+      <recoil_on>1</recoil_on>
+      <broadening_on>0</broadening_on>
+      <brick_med>0</brick_med>      <!-- Set brick_med to 1 while using Brick Hydro module-->
+      <T0>0.16</T0>
+      <hydro_Tc>0.16</hydro_Tc>
+      <qhat0>-2.0</qhat0>      <!-- If Type=0, 1, 5,6,7 set qhat0 as negative since alphas will be used-->
+      <alphas>0.25</alphas>
+    </Matter>
+
+    <Lbt>
+      <name>Lbt</name>
+      <Q0>2.0</Q0>
+      <in_vac>0</in_vac>
+      <only_leading>0</only_leading>
+      <hydro_Tc>0.16</hydro_Tc>
+      <alphas>0.25</alphas>
+    </Lbt>
+
+    
+  </Eloss>
+  
+  <!-- Jet Hadronization Module -->
+  <JetHadronization>
+    <name>colorless</name>
+    <eCMforHadronization>2510</eCMforHadronization>
+  </JetHadronization>
+  
+</jetscape>
