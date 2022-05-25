@@ -49,7 +49,7 @@ int plotter(std::string pp_histFileName, std::string pbpb_histFileName , std::st
 	// Jet R_AA
 	canvas.cd();
 	canvas.SetLogy(false);
-	TLine *line = new TLine(100.0, 1.0, 160.0, 1.0);
+	TLine *line = new TLine(80.0, 1.0, 150.0, 1.0);
 	line->SetLineColor(kBlue);
 	line->SetLineStyle(2);
 	//pp_JetPt->Rebin(2);
@@ -62,6 +62,7 @@ int plotter(std::string pp_histFileName, std::string pbpb_histFileName , std::st
 	rAA->GetYaxis()->SetTitle("R_{AA}");
 	rAA->SetLineColor(kBlack);
 	rAA->GetYaxis()->SetRangeUser(0.,1.5);
+	rAA->GetXaxis()->SetRangeUser(80.,150.);
 	rAA->SetStats(0);
 	rAA->Draw("pe");
 	line->Draw("same");

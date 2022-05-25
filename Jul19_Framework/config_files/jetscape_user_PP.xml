@@ -5,23 +5,31 @@
   <nEvents> 1000 </nEvents>
   
   <outputFilename>test_out</outputFilename>
-  <JetScapeWriterAscii> on </JetScapeWriterAscii>
+  <JetScapeWriterAscii> off </JetScapeWriterAscii>
   <JetScapeWriterFinalStateHadronsAscii> on </JetScapeWriterFinalStateHadronsAscii> 
   <!-- Hard Process -->
   <Hard>
     <PythiaGun>
-      <pTHatMin>100</pTHatMin>
-      <pTHatMax>1000</pTHatMax>
+      <pTHatMin>0</pTHatMin>
+      <pTHatMax>-1</pTHatMax>
       <eCM>5020</eCM>
       <FSR_on>1</FSR_on>
       <LinesToRead>
         HardQCD:all = off
-	      PromptPhoton:all = off
-	      Top:gg2ttbar = on
-	      Top:qqbar2ttbar = on
-	      24:onMode = off
-	      24:onIfAny = 13	14
-	      6:m0 = 172.5
+	PromptPhoton:all = off
+	Top:gg2ttbar = on
+	Top:qqbar2ttbar = on
+	24:onMode = off
+	24:onIfAny = 13	14
+	6:m0 = 172.5
+        Tune:preferLHAPDF = 2
+	Tune:pp 14
+	Tune:ee 7
+	MultipartonInteractions:pT0Ref=2.4024
+	MultipartonInteractions:ecmPow=0.25208
+	ParticleDecays:allowPhotonRadiation = on
+	ParticleDecays:limitTau0 = on
+	ParticleDecays:tau0Max = 10
       </LinesToRead>
     </PythiaGun>
   </Hard>

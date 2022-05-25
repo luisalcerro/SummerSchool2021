@@ -13,7 +13,8 @@ import sys
 import os
 import argparse
 import yaml
-
+import pyhepmc_ng
+import math
 # Fastjet via python (from external library heppy)
 import fastjet as fj
 import ROOT
@@ -69,7 +70,7 @@ class AnalyzeJetscapeEvents_Example(analyze_events_base.AnalyzeJetscapeEvents_Ba
 
                         
         hname = 'hLepPt'
-        h = ROOT.TH1F(hname, hname, 15, 0, 150)
+        h = ROOT.TH1F(hname, hname, 20, 0, 200)
         setattr(self, hname, h)
 
         hname = 'hLepEta'
@@ -80,12 +81,15 @@ class AnalyzeJetscapeEvents_Example(analyze_events_base.AnalyzeJetscapeEvents_Ba
         h = ROOT.TH1F(hname, hname, 50, -4, 4)
         setattr(self, hname, h)
 
+        hname = 'hW2massLep'
+        h = ROOT.TH1F(hname, hname, 50, 60, 100)
+        setattr(self, hname, h)
 
        # Jet histograms
         for jetR in self.jetR_list:
 
             hname = 'hJetPt_R{}'.format(jetR)
-            h = ROOT.TH1F(hname, hname, 5, 100, 160)
+            h = ROOT.TH1F(hname, hname, 8, 80, 180)
             setattr(self, hname, h)
 
             hname = 'hJetEta_R{}'.format(jetR)
@@ -160,6 +164,15 @@ class AnalyzeJetscapeEvents_Example(analyze_events_base.AnalyzeJetscapeEvents_Ba
     def fill_lepton_histograms(self, leptons):
         # Loop through leptons
         Nlep=0
+        muptMax = 20.0
+        mubarptMax = 20.0
+        numubarptMax = 0.0
+        numuptMax = 0.0
+
+        muMax = ''
+        mubarMax = ''
+        numuMax = ''
+        numubarMax = ''
         for lepton in leptons:
             # Fill some basic hadron info
             pid = lepton.pid
@@ -173,9 +186,36 @@ class AnalyzeJetscapeEvents_Example(analyze_events_base.AnalyzeJetscapeEvents_Ba
                 getattr(self, 'hLepPt').Fill(pt, 1.0/self.n_event_max)
                 getattr(self, 'hLepEta').Fill(eta)
                 getattr(self, 'hLepPhi').Fill(phi)
-    
+
+            # W mass
+            if pid == 13:
+                if pt>muptMax:
+                    muptMax = pt
+                    muMax = lepton.momentum
+            if pid == -14:
+                if pt>numubarptMax:
+                    munubarptMax = pt
+                    numubarMax = lepton.momentum
+
+            if pid == -13:
+                if pt>mubarptMax:
+                    mubarptMax = pt
+                    mubarMax = lepton.momentum
+            if pid == 14:
+                if pt>numuptMax:
+                    numuptMax = pt
+                    numuMax = lepton.momentum
+
         getattr(self, 'hNLep').Fill(Nlep)
-    
+
+        W2massLep1 = ''
+        W2massLep2 = ''
+        if(bool(muMax) and bool(numubarMax)):
+            W2massLep1 = (muMax+numubarMax).m()
+        if(bool(mubarMax) and bool(numuMax)):
+            W2massLep2 = (mubarMax+numuMax).m()
+        if(bool(W2massLep1)):getattr(self, 'hW2massLep').Fill(W2massLep1)
+        if(bool(W2massLep2)): getattr(self, 'hW2massLep').Fill(W2massLep2)
     # ---------------------------------------------------------------
     # Fill jet histograms
     # ---------------------------------------------------------------

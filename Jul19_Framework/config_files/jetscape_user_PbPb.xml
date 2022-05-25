@@ -4,7 +4,7 @@
   
   <nEvents> 1000 </nEvents>
   
-  <outputFilename>test_out</outputFilename>
+  <outputFilename>test_out_pbpb_Trento_Hydro_fromFile</outputFilename>
   <!--JetScapeWriterAscii> on </JetScapeWriterAscii-->
   <JetScapeWriterFinalStateHadronsAscii> on </JetScapeWriterFinalStateHadronsAscii> 
   <!-- Hard Process -->
@@ -18,7 +18,7 @@
 		      normalization='18.4'>
       </PhysicsInputs>
       <CutInputs  centrality-low='0'
-		  centrality-high='10'>
+		  centrality-high='40'>
       </CutInputs>
     </Trento>
   </IS>
@@ -48,9 +48,16 @@
 	HardQCD:all = off
 	PromptPhoton:all = off
 	24:onMode = off
-	24:onIfAny = 11 12
 	24:onIfAny = 13 14
-	24:onIfAny = 15 16
+	6:m0 = 172.5
+	Tune:preferLHAPDF = 2
+	Tune:pp 14
+	Tune:ee 7
+	MultipartonInteractions:pT0Ref=2.4024
+	MultipartonInteractions:ecmPow=0.25208
+	ParticleDecays:allowPhotonRadiation = on
+	ParticleDecays:limitTau0 = on
+	ParticleDecays:tau0Max = 10
       </LinesToRead>
     </PythiaGun>
   </Hard>

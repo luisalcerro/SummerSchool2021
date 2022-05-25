@@ -60,7 +60,7 @@ class EventAscii(event_base.EventBase):
                     hadrons.append(particle)
             else:
             	if pt > min_track_pt:
-            		leptons.append(particle)
+            	    leptons.append(particle)
         if key == 'had':
         	return hadrons
         else:
